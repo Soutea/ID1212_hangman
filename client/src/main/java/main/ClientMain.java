@@ -1,5 +1,4 @@
 package main;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -7,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ClientMain {
-
     public static void main(String args[]) throws IOException {
 
         Socket client = new Socket("localhost", 5555); // object client, my connection

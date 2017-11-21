@@ -3,7 +3,6 @@ package common.net;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
@@ -23,7 +22,7 @@ public class NonBlockingScanner {
 
     }
 
-    public String nextLine () throws IOException{
+    public String nextLine() throws IOException {
         try {
             if (channel.read(bytes) == -1) { // skriver till bytes
                 return null;
@@ -32,10 +31,10 @@ public class NonBlockingScanner {
             return null;
         }
         bytes.flip(); //gå till läsläge
-        decoder.decode(bytes,chars,false); // läser från bytes
+        decoder.decode(bytes, chars, false); // läser från bytes
         bytes.compact(); // gå till skrivläge för nästa gång vi ropar
         chars.flip(); //läsläge för chars
-        while(chars.hasRemaining()){
+        while (chars.hasRemaining()) {
             char chr = chars.get();
             if (chr == '\n') {
                 char[] lineChars = new char[chars.position()];

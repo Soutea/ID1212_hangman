@@ -7,7 +7,6 @@ import model.HangmanGame;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.Scanner;
 
 public class PlayerHandler {
     private final SocketChannel client;
@@ -26,7 +25,7 @@ public class PlayerHandler {
 
     public void readMessage() throws IOException {
         try {
-            while(true) {
+            while (true) {
                 String guess = reader.nextLine();
                 if (guess == null) {
                     break;

@@ -14,3 +14,15 @@ subprojects {
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
 }
+
+project(':client') {
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':server') {
+    dependencies {
+        compile project(':common')
+    }
+}

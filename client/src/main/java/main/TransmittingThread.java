@@ -1,30 +1,31 @@
 package main;
 
+import common.net.PrintBuffer;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.WritableByteChannel;
 import java.util.Scanner;
 
 public class TransmittingThread extends Thread {
+    private final WritableByteChannel connection;
 
-    private final Socket server;
-
-    TransmittingThread(Socket server) {
-        this.server = server;
+    TransmittingThread(WritableByteChannel connection) {
+        this.connection = connection;
+        reader = new Scanner(System.in);
+        writer = new PrintBuffer(connection, ByteBuffer.allocate(2000));
     }
+
+    private final Scanner reader;
+    private final PrintBuffer writer;
 
 
     public void run() {
         try {
-            Scanner reader = new Scanner(System.in); // läser från användaren
-            PrintWriter writer = new PrintWriter(server.getOutputStream());
-
-
             while (true) {
                 String line = reader.nextLine();
-                writer.println(line);
-                writer.flush(); // skickar allt i kön (detta för att spelet inte ska fastna för att writer vill
-                // skicka paket för paket
+                writer.print(line + "\r\n");
+                writer.flush();
             }
         } catch (IOException error) {
             throw new RuntimeException(error);
